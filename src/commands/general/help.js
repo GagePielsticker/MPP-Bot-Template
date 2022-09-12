@@ -1,5 +1,4 @@
 const Command = require('../command.js')
-const { table } = require('table')
 
 module.exports = class HelpCommand extends Command {
   constructor (client) {
