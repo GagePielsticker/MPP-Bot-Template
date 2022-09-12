@@ -2,6 +2,7 @@
     "prefix": "",
     "devPrefix": "!!",
     "prodPrefix": "!",
+    "name": "Bot",
     "defaultChannel": "✧𝓓𝓔𝓥 𝓡𝓸𝓸𝓶✧",
     "admins": ["1c7d9536250eb1f43652f4c0"],
     "libraryURL": "https://library.khai.dog/",
