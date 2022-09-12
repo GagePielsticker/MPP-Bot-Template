@@ -1,0 +1,5 @@
+- [x] Initial Bot Framework
+- [ ] Bunch of random commands
+- [ ] MP3 to midi transcriber
+- [ ] Midi recorder
+- [ ] User Finder
