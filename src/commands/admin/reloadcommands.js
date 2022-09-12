@@ -14,7 +14,7 @@ module.exports = class ReloadCommand extends Command {
     client.mpp.sendMessage('Reloading command handler...')
     client.reloadCommands().then(() => {
         client.mpp.sendMessage('Command handler refreshed!')
+        client.mpp.sendMessage('ㅤ')
     })
-    client.mpp.sendMessage('ㅤ')
   }
 }

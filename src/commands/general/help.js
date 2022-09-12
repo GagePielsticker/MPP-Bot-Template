@@ -12,6 +12,7 @@ module.exports = class HelpCommand extends Command {
     client.mpp.sendMessage('ㅤ')
 
     client.mpp.sendMessage('📖 Help')
+    client.mpp.sendMessage(`This bot is currently under development. Please check back later! For more info use ${client.settings.prefix}stats`)
 
     let data = []
 

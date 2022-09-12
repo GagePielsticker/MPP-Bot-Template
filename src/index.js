@@ -13,12 +13,12 @@ require('./extends.js')(client)
 if(process.env.ENVIRO === 'dev') {
     client.settings.prefix = client.settings.devPrefix
     process.env.MPP_TOKEN = process.env.MPP_DEV_TOKEN
-    client.settings.name = `KhaiBot ${client.settings.prefix}h ${process.env.ENVIRO} instance`
+    client.settings.name = `🌌 GalaxySim ${client.settings.prefix}h ${process.env.ENVIRO} instance`
 }
 if(process.env.ENVIRO === 'prod') {
     client.settings.prefix = client.settings.prodPrefix
     process.env.MPP_TOKEN = process.env.MPP_PROD_TOKEN
-    client.settings.name = `KhaiBot ${client.settings.prefix}h`
+    client.settings.name = `🌌 GalaxySim ${client.settings.prefix}h`
 }
 
 client.mpp = new MPPClient(process.env.MPP_TOKEN)
@@ -28,7 +28,7 @@ client.mpp.on('connected', () => {
     client.mpp.setChannel(client.settings.defaultChannel)
     client.reloadCommands()
     client.mpp.sendMessage(`${process.env.ENVIRO} deployed.`)
-    client.mpp.setUser(client.settings.name)
+    client.mpp.setUser(client.settings.name, '#0000FF')
 })
 
 client.mpp.on('message', async msg => {
