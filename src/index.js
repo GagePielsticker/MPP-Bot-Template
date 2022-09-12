@@ -11,12 +11,15 @@ let client = {
 }
 require('./extends.js')(client)
 
+if(process.env.ENVIRO === 'dev') client.settings.prefix = client.settings.devPrefix
+if(process.env.ENVIRO === 'prod') client.settings.prefix = client.settings.prodPrefix
+
 // Event handling
 client.mpp.on('connected', () => {
-    client.mpp.setChannel(`Khaishins-${process.env.ENVIRO} Playground`)
+    client.mpp.setChannel(client.settings.defaultChannel)
     client.mpp.setUser(`KhaiBot ${client.settings.prefix}h`)
     client.reloadCommands()
-    client.mpp.sendMessage(`Hello 👋! My name is KhaiBot, and I am currently under development. This channel is for testing the ${process.env.ENVIRO} deployment.`)
+    client.mpp.sendMessage(`${process.env.ENVIRO} deployed.`)
 })
 
 client.mpp.on('message', async msg => {

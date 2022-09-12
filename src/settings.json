@@ -1,3 +1,6 @@
 {
-    "prefix": "!"
+    "prefix": "",
+    "devPrefix": "!!",
+    "prodPrefix": "!",
+    "defaultChannel": "✧𝓓𝓔𝓥 𝓡𝓸𝓸𝓶✧"
 }
