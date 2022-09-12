@@ -3,7 +3,7 @@ const Command = require('../command.js')
 module.exports = class HelpCommand extends Command {
   constructor (client) {
     super('help', ['h'], 'A Help Command.', {
-      usage: `!help OR !h`
+      usage: `${client.settings.prefix}help OR ${client.settings.prefix}h`
     })
     this.c = client
   }

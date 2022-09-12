@@ -20,7 +20,8 @@ jobs:
             rm -R MPP-Bot-Template
             git clone -b develop https://github.com/GagePielsticker/MPP-Bot-Template.git
             cd MPP-Bot-Template
-            echo "MPP_TOKEN=${{ secrets.MPP_TOKEN }}" >> .env
+            echo "MPP_PROD_TOKEN=${{ secrets.MPP_PROD_TOKEN }}" >> .env
+            echo "MPP_DEV_TOKEN=${{ secrets.MPP_DEV_TOKEN }}" >> .env
             echo "ENVIRO=dev" >> .env
             npm install 
             pm2 delete dev > /dev/null

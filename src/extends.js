@@ -46,6 +46,9 @@ module.exports = client => {
     const cmd = client.commands.find(x => x.name === command || x.aliases.includes(command))
     if (!cmd) return
 
+    console.log(client.settings.admins.includes(msg.author.id))
+    if(cmd.requiresAdmin && !client.settings.admins.includes(msg.author.id)) return client.mpp.sendMessage('You need admin perms to use this command.')
+
     cmd.run(client, msg)
   }
 
