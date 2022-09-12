@@ -4,6 +4,7 @@ module.exports = class Command {
       this.name = name
       this.aliases = aliases
       this.description = description
-      this.requiresAdmin = false
+      this.category = opts.category || 'general'
+      this.requiresAdmin = opts.requiresAdmin || false
     }
   }
