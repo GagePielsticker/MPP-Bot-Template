@@ -1,0 +1,24 @@
+{
+  "name": "mpp-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GagePielsticker/MPP-Bot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GagePielsticker/MPP-Bot/issues"
+  },
+  "homepage": "https://github.com/GagePielsticker/MPP-Bot#readme",
+  "dependencies": {
+    "@discordjs/collection": "^1.1.0",
+    "dotenv": "^16.0.2",
+    "multiplayerpianojs": "^2.0.3"
+  }
+}
