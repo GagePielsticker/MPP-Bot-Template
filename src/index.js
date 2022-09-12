@@ -13,7 +13,7 @@ require('./extends.js')(client)
 if(process.env.ENVIRO === 'dev') {
     client.settings.prefix = client.settings.devPrefix
     process.env.MPP_TOKEN = process.env.MPP_DEV_TOKEN
-    client.settings.name = `🌌 GalaxySim ${client.settings.prefix}h ${process.env.ENVIRO} instance`
+    client.settings.name = `library.khai.dog`
 }
 if(process.env.ENVIRO === 'prod') {
     client.settings.prefix = client.settings.prodPrefix
@@ -32,6 +32,7 @@ client.mpp.on('connected', () => {
 })
 
 client.mpp.on('message', async msg => {
+    if(process.env.ENVIRO === 'dev' && !client.settings.admins.includes(msg.author.id)) return
 
   if (!msg.content.startsWith(client.settings.prefix)) return
 
