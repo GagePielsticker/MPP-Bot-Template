@@ -17,9 +17,9 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             cd ~/mpp/dev
-            rm -R MPP-Bot
+            rm -R MPP-Bot-Template
             git clone -b main https://github.com/GagePielsticker/MPP-Bot-Template.git
-            cd MPP-Bot
+            cd MPP-Bot-Template
             echo "MPP_TOKEN=${{ secrets.MPP_TOKEN }}" >> .env
             echo "ENVIRO=prod" >> .env
             npm install 
