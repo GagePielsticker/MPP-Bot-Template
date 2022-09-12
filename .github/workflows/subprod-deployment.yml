@@ -1,0 +1,27 @@
+name: MPP-Bot SubProd Deployment
+
+on:
+  push:
+    branches: [ develop ]
+ 
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploying to server
+        uses: appleboy/ssh-action@master # An action made to control Linux servers
+        with: # We set all our secrets here for the action, these won't be shown in the action logs
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd ~/mpp/dev
+            rm -R MPP-Bot
+            git clone -b develop https://github.com/GagePielsticker/MPP-Bot-Template.git
+            cd MPP-Bot
+            echo "MPP_TOKEN=${{ secrets.MPP_TOKEN }}" >> .env
+            echo "ENVIRO=dev" >> .env
+            npm install 
+            pm2 delete dev > /dev/null
+            pm2 start npm --name "dev" -- start > /dev/null
