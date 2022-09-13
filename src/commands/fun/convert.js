@@ -34,7 +34,7 @@ module.exports = class Convert extends Command {
 
     await yt.info(parsedURL).then(v => {
         if(v.length_seconds > 480) {
-            client.sendMessage('Videos longer then 8 mins disabled.')
+            client.mpp.sendMessage('Videos longer then 8 mins disabled.')
             client.downloadLock = false
             return
         } else YD.download(parsedURL)
