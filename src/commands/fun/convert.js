@@ -32,12 +32,13 @@ module.exports = class Convert extends Command {
 
     YD.on("finished", function(err, data) {
 
-        client.mpp.sendMessage(`Finished song download. Beginning midi translation AI.`)
+        client.mpp.sendMessage(`@${msg.author.id} Finished song download. Beginning midi translation AI.`)
         let date = +new Date()
 
         exec(`cd ./audio/ && mv ./'${data.title}.mp3' ./${date}.mp3 && /nix/store/sz84dqhk99i6mp1ilj1ja8kyspji0jdl-pianotrans-1.0/bin/pianotrans ${date}.mp3`, (err, output) => {
             if (err) return console.error("could not execute command: ", err)
-            client.mpp.sendMessage('Warming up machine learning model.')
+            client.mpp.sendMessage('Warming up machine learning model... This could take a sec..')
+            console.log(output)
             if(output.startsWith('Segment')) {
                 console.log(`Running conversion, progress: ${output.replace('Segment ', '')}`)
             }
