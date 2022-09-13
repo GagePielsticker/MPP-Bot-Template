@@ -23,6 +23,7 @@
     "mongodb": "^4.9.1",
     "multiplayerpianojs": "^2.0.3",
     "systeminformation": "^5.12.6",
+    "youtube-info-streams": "^1.0.8",
     "youtube-mp3-downloader": "^0.7.11"
   }
 }

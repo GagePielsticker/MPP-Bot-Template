@@ -1,6 +1,7 @@
 const Command = require('../command.js')
 const YoutubeMp3Downloader = require("youtube-mp3-downloader");
 const { exec } = require('node:child_process')
+const yt = require('youtube-info-streams')
 
 module.exports = class Convert extends Command {
   constructor (client) {
@@ -29,16 +30,22 @@ module.exports = class Convert extends Command {
         "allowWebm": false                      // Enable download from WebM sources (default: false)
     });
 
-    console.log(`Converting ${args[1].split('?v=')[1]}`)
+    let parsedURL = args[1].split('?v=')[1]
 
-    YD.download(args[1].split('?v=')[1]);
+    await yt.info(parsedURL).then(v => {
+        if(v.length_seconds > 480) {
+            client.sendMessage('Videos longer then 8 mins disabled.')
+            client.downloadLock = false
+            return
+        } else YD.download(parsedURL)
+    })
 
     YD.on("finished", function(err, data) {
 
         client.mpp.sendMessage(`@${msg.author.id} Finished song download. Beginning midi translation AI.`)
         let date = +new Date()
 
-        exec(`cd ./audio/ && mv ./'${data.title}.mp3' ./${date}.mp3 && /nix/store/sz84dqhk99i6mp1ilj1ja8kyspji0jdl-pianotrans-1.0/bin/pianotrans ./${date}.mp3`, (err, output) => {
+        exec(`cd ./audio/ && mv ./'${data.title}.mp3' ./${date}.mp3 && pianotrans ./${date}.mp3`, (err, output) => {
             if (err) return console.error("could not execute command: ", err)
             client.mpp.sendMessage('Warming up machine learning model... This could take a sec..')
             console.log(output)
