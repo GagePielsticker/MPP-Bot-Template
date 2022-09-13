@@ -34,7 +34,7 @@ module.exports = class Convert extends Command {
 
     await yt.info(parsedURL).then(v => {
         if(v.length_seconds > 480) {
-            client.mpp.sendMessage('Videos longer then 8 mins disabled.')
+            client.sendMessage('Videos longer then 8 mins disabled.')
             client.downloadLock = false
             return
         } else YD.download(parsedURL)
@@ -45,7 +45,7 @@ module.exports = class Convert extends Command {
         client.mpp.sendMessage(`@${msg.author.id} Finished song download. Beginning midi translation AI.`)
         let date = +new Date()
 
-        exec(`chmod +x ./runmodel.sh && ./runmodel.sh '${data.title}.mp3' ${date}.mp3`, (err, output) => {
+        exec(`cd ./audio/ && mv ./'${data.title}.mp3' ./${date}.mp3 && /nix/store/bx33y97w30d5i4d3r0jrsc5gh6fmrfkv-profile/bin/pianotrans ${date}.mp3`, (err, output) => {
             if (err) return console.error("could not execute command: ", err)
             client.mpp.sendMessage('Warming up machine learning model... This could take a sec..')
             console.log(output)
