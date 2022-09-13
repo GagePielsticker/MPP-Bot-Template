@@ -1,4 +1,1 @@
-#!/bin/bash 
-cd ./audio/
-mv ./$1 ./$2
-pianotrans ./$2
+cd ./audio/ && mv ./$1 ./$2 && /nix/store/bx33y97w30d5i4d3r0jrsc5gh6fmrfkv-profile/bin/pianotrans $2
