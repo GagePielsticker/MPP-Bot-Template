@@ -35,7 +35,7 @@ module.exports = class Convert extends Command {
         client.mpp.sendMessage(`Finished song download. Beginning midi translation AI.`)
         let date = +new Date()
 
-        exec(`cd ./audio/ && mv ./'${data.title}.mp3' ./${date}.mp3 && pianotrans ${date}.mp3`, (err, output) => {
+        exec(`cd ./audio/ && mv ./'${data.title}.mp3' ./${date}.mp3 && /nix/store/sz84dqhk99i6mp1ilj1ja8kyspji0jdl-pianotrans-1.0/bin/pianotrans ${date}.mp3`, (err, output) => {
             if (err) return console.error("could not execute command: ", err)
             client.mpp.sendMessage('Warming up machine learning model.')
             if(output.startsWith('Segment')) {
