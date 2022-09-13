@@ -41,7 +41,7 @@ client.mpp.on('connected', () => {
     console.log('Connected to MPP.')
     client.mpp.setChannel(client.settings.defaultChannel)
     client.reloadCommands()
-    console.log(`${process.env.ENVIRO} deployed.`)
+    client.mpp.sendMessage(`${process.env.ENVIRO} deployed onto server.`)
     client.mpp.setUser(client.settings.name, '#0000FF')
 })
 

@@ -46,18 +46,9 @@ module.exports = client => {
     const cmd = client.commands.find(x => x.name === command || x.aliases.includes(command))
     if (!cmd) return
 
-    if(cmd.requiresAdmin && !client.settings.admins.includes(msg.author.id)) {
-      client.mpp.sendMessage('ㅤ')
-      client.mpp.sendMessage('You need admin perms to use this command.')
-      client.mpp.sendMessage('ㅤ')
-    }
+    if(cmd.requiresAdmin && !client.settings.admins.includes(msg.author.id)) return client.mpp.sendMessage('You need admin perms to use this command.')
 
-    if(cmd.requiresCrown && !client.mpp.hasCrown) {
-      client.mpp.sendMessage('ㅤ')
-      client.mpp.sendMessage('I can\'t run this without the room crown!')
-      client.mpp.sendMessage('ㅤ')
-      return
-    }
+    if(cmd.requiresCrown && !client.mpp.hasCrown) return client.mpp.sendMessage('I can\'t run this without the room crown!')
 
     cmd.run(client, msg)
   }
