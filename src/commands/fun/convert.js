@@ -1,6 +1,7 @@
 const Command = require('../command.js')
 const YoutubeMp3Downloader = require("youtube-mp3-downloader");
 const { exec } = require('node:child_process')
+const path = require("path");
 const yt = require('youtube-info-streams')
 
 module.exports = class Convert extends Command {
@@ -45,13 +46,15 @@ module.exports = class Convert extends Command {
         client.mpp.sendMessage(`@${msg.author.id} Finished song download. Beginning midi translation AI.`)
         let date = +new Date()
 
-        exec(`cd ./audio/ && mv ./'${data.title}.mp3' ./${date}.mp3 && /nix/store/bx33y97w30d5i4d3r0jrsc5gh6fmrfkv-profile/bin/pianotrans ${date}.mp3`, (err, output) => {
-            if (err) return console.error("could not execute command: ", err)
-            client.mpp.sendMessage('Warming up machine learning model... This could take a sec..')
-            console.log(output)
-            if(output.startsWith('Segment')) {
-                console.log(`Running conversion, progress: ${output.replace('Segment ', '')}`)
-            }
+        exec(`cd ./audio/ && mv ./'${data.title}.mp3' ./${date}.mp3`, () => {
+            exec(`/nix/store/bx33y97w30d5i4d3r0jrsc5gh6fmrfkv-profile/bin/pianotrans ${path.join(__dirname, `${date}.mp3`)}`, (err, output) => {
+                if (err) return console.error("could not execute command: ", err)
+                client.mpp.sendMessage('Warming up machine learning model... This could take a sec..')
+                console.log(output)
+                if(output.startsWith('Segment')) {
+                    console.log(`Running conversion, progress: ${output.replace('Segment ', '')}`)
+                }
+            })
         })
     });
     
