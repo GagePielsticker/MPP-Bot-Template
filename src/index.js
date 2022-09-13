@@ -8,7 +8,8 @@ let client = {
     commands: new Collection(),
     settings: require('./settings.json'),
     database: undefined,
-    chatBotUsers: []
+    chatBotUsers: [],
+    downloadLock: false
 }
 require('./engine/extends.js')(client)
 require('./engine/mongo.js')(client)
