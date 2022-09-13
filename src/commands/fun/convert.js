@@ -1,6 +1,6 @@
 const Command = require('../command.js')
 const YoutubeMp3Downloader = require("youtube-mp3-downloader");
-const shellExec = require('shell-exec')
+const { shellExec } = require('shell-exec')
 const path = require("path");
 const yt = require('youtube-info-streams')
 
