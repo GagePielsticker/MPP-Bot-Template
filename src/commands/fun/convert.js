@@ -27,7 +27,7 @@ module.exports = class Convert extends Command {
     });
 
     console.log(`Converting ${args[1].split('?v=')[1]}`)
-    
+
     YD.download(args[1].split('?v=')[1]);
 
     YD.on("finished", function(err, data) {
@@ -36,6 +36,7 @@ module.exports = class Convert extends Command {
     });
     
     YD.on("error", function(error) {
+        console.log(error)
         client.mpp.sendMessage('Error processing your request. Did you input a valid youtube url?')
     });
     
