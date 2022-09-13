@@ -26,6 +26,8 @@ module.exports = class Convert extends Command {
         "allowWebm": false                      // Enable download from WebM sources (default: false)
     });
 
+    console.log(`Converting ${args[1].split('?v=')[1]}`)
+    
     YD.download(args[1].split('?v=')[1]);
 
     YD.on("finished", function(err, data) {
