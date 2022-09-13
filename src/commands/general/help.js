@@ -9,7 +9,6 @@ module.exports = class HelpCommand extends Command {
   }
 
   async run (client, msg) {
-    client.mpp.sendMessage('ㅤ')
 
     client.mpp.sendMessage('📖 Help')
     client.mpp.sendMessage(`This bot is currently under development. Please check back later! For more info use ${client.settings.prefix}stats`)
@@ -27,6 +26,5 @@ module.exports = class HelpCommand extends Command {
       category = category.charAt(0).toUpperCase() + category.slice(1) // make 1st character uppercase
       client.mpp.sendMessage(`${category}ㅤㅤ${client.commands.filter(x => x.category === category.toLowerCase()).map(x => `${client.settings.prefix}${x.name.toLowerCase()}`).join(', ')}`)
     })
-    client.mpp.sendMessage('ㅤ')
   }
 }

@@ -13,7 +13,6 @@ module.exports = class StatsCommand extends Command {
     const cpu = await si.cpu()
     const mem = await si.mem()
     const operating = await si.osInfo()
-    client.mpp.sendMessage('ㅤ')
 
     client.mpp.sendMessage('📊 Statistics')
     client.mpp.sendMessage('INFO :: Bot is currently under development. Feel free to contribute!')
@@ -24,6 +23,5 @@ module.exports = class StatsCommand extends Command {
     client.mpp.sendMessage(`Language :: NodeJS using ${client.settings.libraryURL}`)
     client.mpp.sendMessage(`Support :: Join my discord @ ${client.settings.discordURL}`)
     client.mpp.sendMessage(`Github :: Contribute to the code @ ${client.settings.githubURL}`)
-    client.mpp.sendMessage('ㅤ')
   }
 }

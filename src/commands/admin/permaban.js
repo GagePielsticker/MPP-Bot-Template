@@ -18,9 +18,7 @@ module.exports = class PermaBan extends Command {
     client.addUserBan(args[1], args[2])
     client.mpp.ban(args[1], 1)
 
-    client.mpp.sendMessage('ㅤ')
     client.mpp.sendMessage('🔨 Permaban')
     client.mpp.sendMessage(`User ${args[1]} has been permabanned from the channel. To undo this type ${client.settings.prefix}unperma ${args[1]}!`)
-    client.mpp.sendMessage('ㅤ')
   }
 }

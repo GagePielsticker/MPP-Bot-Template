@@ -8,8 +8,6 @@ module.exports = class StatsCommand extends Command {
   }
 
   async run (client, msg) {
-    client.mpp.sendMessage('ㅤ')
     client.mpp.sendMessage(`Thanks for using the bot! Feel free to join us @ ${client.settings.discordURL}`)
-    client.mpp.sendMessage('ㅤ')
   }
 }

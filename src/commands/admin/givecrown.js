@@ -11,10 +11,8 @@ module.exports = class GiveCrown extends Command {
   }
 
   async run (client, msg) {
-    client.mpp.sendMessage('ㅤ')
     client.mpp.sendMessage('🔨 Crown')
     client.mpp.giveCrown(msg.author.id)
     client.mpp.sendMessage(`Set ${msg.author.name} as owner!`)
-    client.mpp.sendMessage('ㅤ')
   }
 }
