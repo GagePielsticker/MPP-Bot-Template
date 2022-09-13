@@ -13,7 +13,7 @@ module.exports = class InviteCommand extends Command {
     let curUsr = msg.author.id
     let chat = []
     if(client.chatBotUsers.includes(curUsr)) return client.mpp.sendMessage('You already have a chatbot initiated. Please wait for it do close.')
-
+    client.chatBotUsers.push(curUsr)
     client.mpp.sendMessage(`Initiating chatbot. Feel free to say hi @${msg.author.id}! (Bot expires in ${client.settings.chatBotLifeMS / 1000} seconds)`)
 
     let msgHandler = chatMsg => {
@@ -33,6 +33,7 @@ module.exports = class InviteCommand extends Command {
     setTimeout(() => {
         client.mpp.removeListener('message', msgHandler)
         client.mpp.sendMessage(`@${msg.author.id} Your chatbot has expired.`)
+        client.chatBotUsers.splice(client.chatBotUsers.indexOf(curUsr), 1)
         return
     }, client.settings.chatBotLifeMS)
     
