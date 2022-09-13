@@ -18,6 +18,8 @@ module.exports = class Convert extends Command {
     if(client.downloadLock) return client.mpp.sendMessage(`@${msg.author.id} There is a song currently being processed. Please wait.`)
     else client.mpp.sendMessage(`@${msg.author.id} Starting download...`)
 
+    client.downloadLock = true
+
     const YD = new YoutubeMp3Downloader({
         "ffmpegPath": "/usr/bin/ffmpeg",        // FFmpeg binary location
         "outputPath": "./audio",    // Output file location (default: the home directory)
