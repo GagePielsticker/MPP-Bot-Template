@@ -2,10 +2,19 @@
     "prefix": "",
     "devPrefix": "--",
     "prodPrefix": "-",
+
     "name": "Bot",
     "defaultChannel": "🌌 GalaxySim 🌌",
     "admins": ["1c7d9536250eb1f43652f4c0"],
+
     "libraryURL": "https://library.khai.dog/",
     "discordURL": "https://discord.khai.dog/",
-    "githubURL": "https://github.com/GagePielsticker/MPP-Bot-Template"
+    "githubURL": "https://github.com/GagePielsticker/MPP-Bot-Template",
+
+
+    "mongo": {
+      "host": "0.0.0.0",
+      "port": "27017",
+      "database": "galaxysim"
+  }
 }

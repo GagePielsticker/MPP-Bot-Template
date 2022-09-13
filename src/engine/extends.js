@@ -15,18 +15,18 @@ module.exports = client => {
    */
     client.reloadCommands = async () => {
         const promises = []
-        let cmdFolders = promiseReaddir(path.resolve(__dirname, './commands')).catch(console.log)
+        let cmdFolders = promiseReaddir(path.resolve(__dirname, '../commands')).catch(console.log)
         promises.push(cmdFolders)
         cmdFolders = await cmdFolders
         cmdFolders.forEach(async folder => {
         if (folder.endsWith('.js')) return
-        let commands = promiseReaddir(path.resolve(__dirname, './commands', folder)).catch(console.log)
+        let commands = promiseReaddir(path.resolve(__dirname, '../commands', folder)).catch(console.log)
         promises.push(commands)
         commands = await commands
         if (!commands) return
         commands.forEach(cmd => {
-            delete require.cache[require.resolve(path.resolve(__dirname, './commands', folder, cmd))]
-            const Command = require(path.resolve(__dirname, './commands', folder, cmd))
+            delete require.cache[require.resolve(path.resolve(__dirname, '../commands', folder, cmd))]
+            const Command = require(path.resolve(__dirname, '../commands', folder, cmd))
             client.commands.set(cmd, new Command(client))
         })
         })
@@ -46,8 +46,18 @@ module.exports = client => {
     const cmd = client.commands.find(x => x.name === command || x.aliases.includes(command))
     if (!cmd) return
 
-    console.log(client.settings.admins.includes(msg.author.id))
-    if(cmd.requiresAdmin && !client.settings.admins.includes(msg.author.id)) return client.mpp.sendMessage('You need admin perms to use this command.')
+    if(cmd.requiresAdmin && !client.settings.admins.includes(msg.author.id)) {
+      client.mpp.sendMessage('ㅤ')
+      client.mpp.sendMessage('You need admin perms to use this command.')
+      client.mpp.sendMessage('ㅤ')
+    }
+
+    if(cmd.requiresCrown && !client.mpp.hasCrown) {
+      client.mpp.sendMessage('ㅤ')
+      client.mpp.sendMessage('I can\'t run this without the room crown!')
+      client.mpp.sendMessage('ㅤ')
+      return
+    }
 
     cmd.run(client, msg)
   }
