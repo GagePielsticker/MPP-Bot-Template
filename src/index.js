@@ -7,7 +7,8 @@ const Collection = require('@discordjs/collection').Collection
 let client = {
     commands: new Collection(),
     settings: require('./settings.json'),
-    database: undefined
+    database: undefined,
+    chatBotUsers: []
 }
 require('./engine/extends.js')(client)
 require('./engine/mongo.js')(client)
@@ -15,7 +16,8 @@ require('./engine/mongo.js')(client)
 if(process.env.ENVIRO === 'dev') {
     client.settings.prefix = client.settings.devPrefix
     process.env.MPP_TOKEN = process.env.MPP_DEV_TOKEN
-    client.settings.name = `library.khai.dog`
+    client.settings.defaultChannel = '✧𝓓𝓔𝓥 𝓡𝓸𝓸𝓶✧'
+    client.settings.name = `🌌 GalaxyTest ${client.settings.prefix}h`
 }
 if(process.env.ENVIRO === 'prod') {
     client.settings.prefix = client.settings.prodPrefix
@@ -53,7 +55,6 @@ client.mpp.on('userJoin', async usr => {
 })
 
 client.mpp.on('message', async msg => {
-    if(process.env.ENVIRO === 'dev' && !client.settings.admins.includes(msg.author.id)) return
 
   if (!msg.content.startsWith(client.settings.prefix)) return
 
