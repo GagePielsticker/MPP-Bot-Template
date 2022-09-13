@@ -26,7 +26,7 @@ module.exports = class Convert extends Command {
         "allowWebm": false                      // Enable download from WebM sources (default: false)
     });
 
-    YD.download(args[1]);
+    YD.download(args[1].split('?v=')[1]);
 
     YD.on("finished", function(err, data) {
         client.mpp.sendMessage(`Finished song download. Beginning midi translation AI.`)
