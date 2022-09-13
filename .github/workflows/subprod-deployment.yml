@@ -18,7 +18,7 @@ jobs:
           script: |
             cd ~/mpp/dev
             rm -R MPP-Bot-Template
-            git clone -b develop https://github.com/GagePielsticker/MPP-Bot-Template.git
+            git clone -b develop ${{ secrets.GIT_CLONEURL }}
             cd MPP-Bot-Template
             echo "MPP_PROD_TOKEN=${{ secrets.MPP_PROD_TOKEN }}" >> .env
             echo "MPP_DEV_TOKEN=${{ secrets.MPP_DEV_TOKEN }}" >> .env
