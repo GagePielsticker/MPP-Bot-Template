@@ -22,6 +22,5 @@ module.exports = class StatsCommand extends Command {
     client.mpp.sendMessage(`PLATFORM :: ${operating.platform}`)
     client.mpp.sendMessage(`Language :: NodeJS using ${client.settings.libraryURL}`)
     client.mpp.sendMessage(`Support :: Join my discord @ ${client.settings.discordURL}`)
-    client.mpp.sendMessage(`Github :: Contribute to the code @ ${client.settings.githubURL}`)
   }
 }

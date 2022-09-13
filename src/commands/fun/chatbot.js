@@ -1,7 +1,7 @@
 const Command = require('../command.js')
 const cleverbot = require("cleverbot-free")
 
-module.exports = class InviteCommand extends Command {
+module.exports = class ChatBot extends Command {
   constructor (client) {
     super('chatbot', [], 'A cleverbot implementation.', {
       usage: `${client.settings.prefix}chatbot`,

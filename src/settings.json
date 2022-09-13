@@ -4,7 +4,7 @@
     "prodPrefix": "-",
 
     "name": "Bot",
-    "defaultChannel": "🌌 GalaxySim 🌌",
+    "defaultChannel": "🌌 Song-To-Midi Converter 🌌",
     "admins": ["1c7d9536250eb1f43652f4c0"],
 
     "libraryURL": "https://library.khai.dog/",

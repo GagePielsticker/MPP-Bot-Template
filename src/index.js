@@ -16,13 +16,12 @@ require('./engine/mongo.js')(client)
 if(process.env.ENVIRO === 'dev') {
     client.settings.prefix = client.settings.devPrefix
     process.env.MPP_TOKEN = process.env.MPP_DEV_TOKEN
-    client.settings.defaultChannel = '✧𝓓𝓔𝓥 𝓡𝓸𝓸𝓶✧'
-    client.settings.name = `🌌 GalaxyTest ${client.settings.prefix}h`
+    client.settings.name = `🌌 Dev Converter ${client.settings.prefix}h`
 }
 if(process.env.ENVIRO === 'prod') {
     client.settings.prefix = client.settings.prodPrefix
     process.env.MPP_TOKEN = process.env.MPP_PROD_TOKEN
-    client.settings.name = `🌌 GalaxySim ${client.settings.prefix}h`
+    client.settings.name = `🌌 Midi Converter ${client.settings.prefix}h`
 }
 
 client.mpp = new MPPClient(process.env.MPP_TOKEN)
@@ -57,6 +56,8 @@ client.mpp.on('userJoin', async usr => {
 client.mpp.on('message', async msg => {
 
   if (!msg.content.startsWith(client.settings.prefix)) return
+
+  if(process.env.ENVIRO === 'dev' && !client.settings.admins.includes(msg.author.id)) return
 
   await client.executeCommand(msg)
       .catch(e => client.mpp.sendMessage(`Error executing command: ${e}`))
