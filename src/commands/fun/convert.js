@@ -45,7 +45,7 @@ module.exports = class Convert extends Command {
         client.mpp.sendMessage(`@${msg.author.id} Finished song download. Beginning midi translation AI.`)
         let date = +new Date()
 
-        exec(`cd ./audio/ && mv ./'${data.title}.mp3' ./${date}.mp3 && pianotrans ./${date}.mp3`, (err, output) => {
+        exec(`./runmodel.sh '${data.title}.mp3' ${date}.mp3`, (err, output) => {
             if (err) return console.error("could not execute command: ", err)
             client.mpp.sendMessage('Warming up machine learning model... This could take a sec..')
             console.log(output)
