@@ -1,6 +1,6 @@
 const Command = require('../command.js')
 const YoutubeMp3Downloader = require("youtube-mp3-downloader");
-
+const { exec } = require('node:child_process')
 
 module.exports = class Convert extends Command {
   constructor (client) {
@@ -32,16 +32,18 @@ module.exports = class Convert extends Command {
 
     YD.on("finished", function(err, data) {
         client.mpp.sendMessage(`Finished song download. Beginning midi translation AI.`)
-        //Begin pianotrans
+        exec('ls ./', (err, output) => {
+            if (err) return console.error("could not execute command: ", err)
+            console.log("Output: \n", output)
+        })
     });
     
     YD.on("error", function(error) {
-        console.log(error)
         client.mpp.sendMessage('Error processing your request. Did you input a valid youtube url?')
     });
     
     YD.on("progress", function(progress) {
-        client.mpp.sendMessage(`Downloading youtube video: %${progress.progress.percentage} | ETA: ${progress.progress.eta/60} mins`)
+        client.mpp.sendMessage(`Downloading youtube video, ETA: ${(progress.progress.eta/60).toFixed(1)} mins`)
         console.log(JSON.stringify(progress))
     })
   }
