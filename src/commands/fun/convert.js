@@ -15,7 +15,8 @@ module.exports = class Convert extends Command {
     let args = msg.content.split(' ')
     if(args.length != 2) return client.mpp.sendMessage('Invalid amount of arguments.')
 
-    if(client.downloadLock) return client.mpp.sendMessage('There is a song currently being processed. Please wait.')
+    if(client.downloadLock) return client.mpp.sendMessage(`@${msg.author.id} There is a song currently being processed. Please wait.`)
+    else client.mpp.sendMessage(`@${msg.author.id} Starting download...`)
 
     const YD = new YoutubeMp3Downloader({
         "ffmpegPath": "/usr/bin/ffmpeg",        // FFmpeg binary location
@@ -35,7 +36,7 @@ module.exports = class Convert extends Command {
         client.mpp.sendMessage(`@${msg.author.id} Finished song download. Beginning midi translation AI.`)
         let date = +new Date()
 
-        exec(`cd ./audio/ && mv ./'${data.title}.mp3' ./${date}.mp3 && /nix/store/sz84dqhk99i6mp1ilj1ja8kyspji0jdl-pianotrans-1.0/bin/pianotrans ${date}.mp3`, (err, output) => {
+        exec(`cd ./audio/ && mv ./'${data.title}.mp3' ./${date}.mp3 && /nix/store/sz84dqhk99i6mp1ilj1ja8kyspji0jdl-pianotrans-1.0/bin/pianotrans ./${date}.mp3`, (err, output) => {
             if (err) return console.error("could not execute command: ", err)
             client.mpp.sendMessage('Warming up machine learning model... This could take a sec..')
             console.log(output)
