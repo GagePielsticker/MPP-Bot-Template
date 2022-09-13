@@ -31,8 +31,9 @@ module.exports = class Convert extends Command {
     YD.download(args[1].split('?v=')[1]);
 
     YD.on("finished", function(err, data) {
+        console.log(data)
         client.mpp.sendMessage(`Finished song download. Beginning midi translation AI.`)
-        exec('ls ./', (err, output) => {
+        exec('cd ./audio/ && ls ', (err, output) => {
             if (err) return console.error("could not execute command: ", err)
             console.log("Output: \n", output)
         })
