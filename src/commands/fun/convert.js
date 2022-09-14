@@ -46,13 +46,11 @@ module.exports = class Convert extends Command {
         client.mpp.sendMessage(`@${msg.author.id} Finished song download. Beginning midi translation AI.`)
         let date = +new Date()
 
-        exec(`chmod +x ./runmodel.sh && cd ./audio/ && mv \'${data.title}.mp3\' ${date}.mp3`, {
+        exec(`PATH=$PATH:/root/.nix-profile/bin:/nix/store/sz84dqhk99i6mp1ilj1ja8kyspji0jdl-pianotrans-1.0/bin:/root/.nix-profile/bin:/nix/var/nix/profiles/default/bin && cd ./audio/ && mv \'${data.title}.mp3\' ${date}.mp3 && pianotrans [${date}.mp3]`, {
             shell:'/bin/bash'
         }, (err, out) => {
-            exec(`PATH=$PATH:/root/.nix-profile/bin:/nix/store/sz84dqhk99i6mp1ilj1ja8kyspji0jdl-pianotrans-1.0/bin:/root/.nix-profile/bin:/nix/var/nix/profiles/default/bin && ./runmodel.sh ${date}.mp3`, (err, out) => {
-                console.log(err)
-                console.log(out)
-            })
+            console.log(err)
+            console.log(out)
         })
         
         // exec(`cd ./audio/ && mv ./'${data.title}.mp3' ./${date}.mp3 && /nix/store/bx33y97w30d5i4d3r0jrsc5gh6fmrfkv-profile/bin/pianotrans ${date}.mp3`, (err, output) => {
