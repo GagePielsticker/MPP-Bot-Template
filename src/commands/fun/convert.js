@@ -46,7 +46,7 @@ module.exports = class Convert extends Command {
         client.mpp.sendMessage(`@${msg.author.id} Finished song download. Beginning midi translation AI.`)
         let date = +new Date()
 
-        exec(`cd ./audio/ && mv \'${data.title}.mp3\' ${date}.mp3 && && pianotrans ${date}.mp3`, {
+        exec(`cd ./audio/ && mv \'${data.title}.mp3\' ${date}.mp3 && pianotrans ${date}.mp3`, {
             shell:'/bin/bash'
         }, (err, out) => {
             console.log(err)
