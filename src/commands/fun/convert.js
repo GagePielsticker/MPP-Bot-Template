@@ -24,7 +24,7 @@ module.exports = class Convert extends Command {
 
     const YD = new YoutubeMp3Downloader({
         "ffmpegPath": "/usr/bin/ffmpeg",        // FFmpeg binary location
-        "outputPath": "./audio",    // Output file location (default: the home directory)
+        "outputPath": "./",    // Output file location (default: the home directory)
         "youtubeVideoQuality": "highestaudio",  // Desired video quality (default: highestaudio)
         "queueParallelism": 2,                  // Download parallelism (default: 1)
         "progressTimeout": 2000,                // Interval in ms for the progress reports (default: 1000)
@@ -46,9 +46,10 @@ module.exports = class Convert extends Command {
         client.mpp.sendMessage(`@${msg.author.id} Finished song download. Beginning midi translation AI.`)
         let date = +new Date()
 
-        exec(`PATH=$PATH:/root/.nix-profile/bin:/nix/store/sz84dqhk99i6mp1ilj1ja8kyspji0jdl-pianotrans-1.0/bin:/root/.nix-profile/bin:/nix/var/nix/profiles/default/bin && cd ./audio/ && mv \'${data.title}.mp3\' ${date}.mp3 && pianotrans [${date}.mp3]`, {
+        exec(`PATH=$PATH:/root/.nix-profile/bin:/nix/store/sz84dqhk99i6mp1ilj1ja8kyspji0jdl-pianotrans-1.0/bin:/root/.nix-profile/bin:/nix/var/nix/profiles/default/bin && mv \'${data.title}.mp3\' ${date}.mp3`, {
             shell:'/bin/bash'
         }, (err, out) => {
+            let worker = spawn('/nix/var/nix/profiles/default/bin/pianotrans', [`${date}.mp3`])
             console.log(err)
             console.log(out)
         })
