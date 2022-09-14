@@ -33,27 +33,30 @@ module.exports = class Convert extends Command {
 
     let parsedURL = args[1].split('?v=')[1]
 
+    let date = +new Date()
+
     await yt.info(parsedURL).then(v => {
         if(v.length_seconds > 480) {
             client.sendMessage('Videos longer then 8 mins disabled.')
             client.downloadLock = false
             return
-        } else YD.download(parsedURL)
+        } else YD.download(parsedURL, `${date}`)
     })
 
     YD.on("finished", function(err, data) {
 
         client.mpp.sendMessage(`@${msg.author.id} Finished song download.`)
-        let date = +new Date()
 
-        let string = `PATH=$PATH:/root/.nix-profile/bin:/nix/store/sz84dqhk99i6mp1ilj1ja8kyspji0jdl-pianotrans-1.0/bin:/root/.nix-profile/bin:/nix/var/nix/profiles/default/bin && cd ./audio/ && mv \'${data.title}.mp3\' ${date}.mp3 && python3 ./runmodel.py --audio_path=./${date}.mp3 --output_midi_path='./${date}.mid'`
+        let string = `PATH=$PATH:/root/.nix-profile/bin:/nix/store/sz84dqhk99i6mp1ilj1ja8kyspji0jdl-pianotrans-1.0/bin:/root/.nix-profile/bin:/nix/var/nix/profiles/default/bin && cd ./audio/ && python3 ./runmodel.py --audio_path=./${date}.mp3 --output_midi_path='./${date}.mid'`
 
         client.mpp.sendMessage('Warming up and running machine learning model... This could take a sec (or mins)..')
         let running = false
 
+        let i = 0
         let updateInt = setInterval(() => {
-            client.mpp.sendMessage(`Machine Learning Model Running...`)
-        }, 2000)
+            i++
+            client.mpp.sendMessage(`Machine Learning Model Running... Please be patient :: ${i}`)
+        }, 8000)
         exec(string, {
             shell:'/bin/sh'
         }, (err, out) => {
@@ -92,6 +95,7 @@ module.exports = class Convert extends Command {
     });
     
     YD.on("error", function(error) {
+        console.log(error)
         client.mpp.sendMessage('Error processing your request. Did you input a valid youtube url?')
         client.downloadLock = false
     });
