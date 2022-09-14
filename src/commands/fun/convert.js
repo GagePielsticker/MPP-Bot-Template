@@ -40,7 +40,7 @@ module.exports = class Convert extends Command {
             client.sendMessage('Videos longer then 8 mins disabled.')
             client.downloadLock = false
             return
-        } else YD.download(parsedURL, `${date}`)
+        } else YD.download(parsedURL, `${date}.mp3`)
     })
 
     YD.on("finished", function(err, data) {
@@ -62,6 +62,7 @@ module.exports = class Convert extends Command {
         }, (err, out) => {
 
             if (err) {
+                console.log()
                 clearInterval(updateInt)
                 client.mpp.send(`Internal error trying to execute.`)
                 console.error("could not execute command: ", err)
