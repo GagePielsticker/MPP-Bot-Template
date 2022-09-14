@@ -36,8 +36,8 @@ module.exports = class Convert extends Command {
     let date = +new Date()
 
     await yt.info(parsedURL).then(v => {
-        if(v.length_seconds > 480) {
-            client.mpp.sendMessage('Videos longer then 8 mins disabled.')
+        if(v.player_response.videoDetails.lengthSeconds > 480 || v.player_response.videoDetails.isLiveContent) {
+            client.mpp.sendMessage('Videos longer then 8 mins and streams are disabled.')
             client.downloadLock = false
             return
         } else YD.download(parsedURL, `${date}.mp3`)
