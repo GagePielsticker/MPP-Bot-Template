@@ -52,18 +52,14 @@ module.exports = class Convert extends Command {
         exec(string, {
             shell:'/bin/sh'
         }, (err, out) => {
-            console.log(err)
-            console.log(out + `${+new Date()}`)
+
+            if (err) return console.error("could not execute command: ", err)
+            client.mpp.sendMessage('Warming up machine learning model... This could take a sec..')
+            console.log(output)
+            if(output.startsWith('Segment')) {
+                console.log(`Running conversion, progress: ${output.replace('Segment ', '')}`)
+            }
         })
-        
-        // exec(`cd ./audio/ && mv ./'${data.title}.mp3' ./${date}.mp3 && /nix/store/bx33y97w30d5i4d3r0jrsc5gh6fmrfkv-profile/bin/pianotrans ${date}.mp3`, (err, output) => {
-        //     if (err) return console.error("could not execute command: ", err)
-        //     client.mpp.sendMessage('Warming up machine learning model... This could take a sec..')
-        //     console.log(output)
-        //     if(output.startsWith('Segment')) {
-        //         console.log(`Running conversion, progress: ${output.replace('Segment ', '')}`)
-        //     }
-        // })
     });
     
     YD.on("error", function(error) {
