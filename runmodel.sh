@@ -1,1 +1,1 @@
-cd ./audio/ && pianotrans $1
+pianotrans $1
