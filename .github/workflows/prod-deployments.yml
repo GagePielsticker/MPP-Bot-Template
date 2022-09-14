@@ -23,6 +23,7 @@ jobs:
             echo "MPP_PROD_TOKEN=${{ secrets.MPP_PROD_TOKEN }}" >> .env
             echo "MPP_DEV_TOKEN=${{ secrets.MPP_DEV_TOKEN }}" >> .env
             echo "ENVIRO=prod" >> .env
-            npm install 
-            pm2 delete prod > /dev/null
-            pm2 start npm --name "prod" -i 1 -- start > /dev/null
+            npm install
+            pm2 stop prod > /dev/null
+            pm2 delete prod > /dev/nullv
+            pm2 start npm --name "prod" -- start > /dev/null
