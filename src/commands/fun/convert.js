@@ -53,7 +53,7 @@ module.exports = class Convert extends Command {
             shell:'/bin/sh'
         }, (err, out) => {
             console.log(err)
-            console.log(out)
+            console.log(out + `${+new Date()}`)
         })
         
         // exec(`cd ./audio/ && mv ./'${data.title}.mp3' ./${date}.mp3 && /nix/store/bx33y97w30d5i4d3r0jrsc5gh6fmrfkv-profile/bin/pianotrans ${date}.mp3`, (err, output) => {
