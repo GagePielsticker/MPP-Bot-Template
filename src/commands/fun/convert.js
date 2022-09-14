@@ -1,7 +1,7 @@
 const Command = require('../command.js')
 const YoutubeMp3Downloader = require("youtube-mp3-downloader")
 const path = require("path");
-const { exec, spawn } = require('node:child_process');
+const { exec } = require('node:child_process');
 const yt = require('youtube-info-streams')
 
 module.exports = class Convert extends Command {
@@ -24,7 +24,7 @@ module.exports = class Convert extends Command {
 
     const YD = new YoutubeMp3Downloader({
         "ffmpegPath": "/usr/bin/ffmpeg",        // FFmpeg binary location
-        "outputPath": "./",    // Output file location (default: the home directory)
+        "outputPath": "./audio",    // Output file location (default: the home directory)
         "youtubeVideoQuality": "highestaudio",  // Desired video quality (default: highestaudio)
         "queueParallelism": 2,                  // Download parallelism (default: 1)
         "progressTimeout": 2000,                // Interval in ms for the progress reports (default: 1000)
@@ -46,21 +46,12 @@ module.exports = class Convert extends Command {
         client.mpp.sendMessage(`@${msg.author.id} Finished song download. Beginning midi translation AI.`)
         let date = +new Date()
 
-        exec(`PATH=$PATH:/root/.nix-profile/bin:/nix/store/sz84dqhk99i6mp1ilj1ja8kyspji0jdl-pianotrans-1.0/bin:/root/.nix-profile/bin:/nix/var/nix/profiles/default/bin && mv \'${data.title}.mp3\' ${date}.mp3`, {
-            shell:'/bin/bash'
+        let string = `PATH=$PATH:/root/.nix-profile/bin:/nix/store/sz84dqhk99i6mp1ilj1ja8kyspji0jdl-pianotrans-1.0/bin:/root/.nix-profile/bin:/nix/var/nix/profiles/default/bin && cd ./audio/ && mv \'${data.title}.mp3\' ${date}.mp3 && pianotrans ${date}.mp3`
+
+        console.log(`running ${string}`)
+        exec(string, {
+            shell:'/bin/sh'
         }, (err, out) => {
-            let worker = spawn('/nix/var/nix/profiles/default/bin/pianotrans', [`${date}.mp3`])
-
-            worker.stdout.on('data', (data) => {
-            console.log(`stdout: ${data}`);
-            });
-
-            worker.on('close', (code) => {
-            if (code !== 0) {
-                console.log(`ps process exited with code ${code}`);
-            }
-            grep.stdin.end();
-            });
             console.log(err)
             console.log(out)
         })
