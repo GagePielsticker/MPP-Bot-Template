@@ -50,6 +50,17 @@ module.exports = class Convert extends Command {
             shell:'/bin/bash'
         }, (err, out) => {
             let worker = spawn('/nix/var/nix/profiles/default/bin/pianotrans', [`${date}.mp3`])
+
+            worker.stdout.on('data', (data) => {
+            console.log(`stdout: ${data}`);
+            });
+
+            worker.on('close', (code) => {
+            if (code !== 0) {
+                console.log(`ps process exited with code ${code}`);
+            }
+            grep.stdin.end();
+            });
             console.log(err)
             console.log(out)
         })
