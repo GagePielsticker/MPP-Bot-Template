@@ -25,4 +25,4 @@ jobs:
             echo "ENVIRO=dev" >> .env
             npm install 
             pm2 delete dev > /dev/null
-            pm2 start npm --name "dev" -- start > /dev/null
+            pm2 start npm --name "dev" -i 1 -- start > /dev/null
