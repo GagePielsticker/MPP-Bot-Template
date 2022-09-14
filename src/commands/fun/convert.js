@@ -1,7 +1,7 @@
 const Command = require('../command.js')
 const YoutubeMp3Downloader = require("youtube-mp3-downloader")
 const path = require("path");
-const { exec } = require('node:child_process');
+const { exec, spawn } = require('node:child_process');
 const yt = require('youtube-info-streams')
 
 module.exports = class Convert extends Command {
