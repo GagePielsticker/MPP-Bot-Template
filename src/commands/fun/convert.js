@@ -42,6 +42,11 @@ module.exports = class Convert extends Command {
             return
         } else YD.download(parsedURL, `${date}.mp3`)
     })
+    .catch(e => {
+        client.mpp.sendMessage('Video not available.')
+        client.downloadLock = false
+        return
+    })
 
     YD.on("finished", function(err, data) {
 
