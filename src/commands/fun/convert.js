@@ -43,27 +43,54 @@ module.exports = class Convert extends Command {
 
     YD.on("finished", function(err, data) {
 
-        client.mpp.sendMessage(`@${msg.author.id} Finished song download. Beginning midi translation AI.`)
+        client.mpp.sendMessage(`@${msg.author.id} Finished song download.`)
         let date = +new Date()
 
         let string = `PATH=$PATH:/root/.nix-profile/bin:/nix/store/sz84dqhk99i6mp1ilj1ja8kyspji0jdl-pianotrans-1.0/bin:/root/.nix-profile/bin:/nix/var/nix/profiles/default/bin && cd ./audio/ && mv \'${data.title}.mp3\' ${date}.mp3 && python3 ./runmodel.py --audio_path=./${date}.mp3 --output_midi_path='./${date}.mid'`
 
-        console.log(`running ${string}`)
+        client.mpp.sendMessage('Warming up and running machine learning model... This could take a sec (or mins)..')
+        let running = false
+
+        let updateInt = setInterval(() => {
+            client.mpp.sendMessage(`Machine Learning Model Running...`)
+        }, 2000)
         exec(string, {
             shell:'/bin/sh'
         }, (err, out) => {
 
-            if (err) return console.error("could not execute command: ", err)
-            client.mpp.sendMessage('Warming up machine learning model... This could take a sec..')
-            console.log(output)
-            if(output.startsWith('Segment')) {
-                console.log(`Running conversion, progress: ${output.replace('Segment ', '')}`)
+            if (err) {
+                console.error("could not execute command: ", err)
+                client.downloadLock = false
+                return
+            }
+
+            clearInterval(updateInt)
+            exec(`cd ./audio && mv ${date}.mid /var/www/html`, (err, out) => {
+                if (err) {
+                    console.error("could not execute command: ", err)
+                    client.downloadLock = false
+                    return
+                }
+
+                client.mpp.sendMessage(`Uploaded! Find your midi file here https://khai.dog/${date}.mid ! It will expire in 10 mins.`)
+                client.downloadLock = false
+                
+                setTimeout(() => {
+                    exec(`rm /var/www/html/${date}.mid`)
+                }, 600000)
+
+            })
+
+            console.log(out)
+            if(out.startsWith('Segment')) {
+                console.log(`Running conversion, progress: ${out.replace('Segment ', '')}`)
             }
         })
     });
     
     YD.on("error", function(error) {
         client.mpp.sendMessage('Error processing your request. Did you input a valid youtube url?')
+        client.downloadLock = false
     });
     
     YD.on("progress", function(progress) {
