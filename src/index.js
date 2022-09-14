@@ -17,7 +17,7 @@ require('./engine/mongo.js')(client)
 if(process.env.ENVIRO === 'dev') {
     client.settings.prefix = client.settings.devPrefix
     process.env.MPP_TOKEN = process.env.MPP_DEV_TOKEN
-    client.settings.name = `🌌 Dev Converter ${client.settings.prefix}h`
+    client.settings.name = `🌌 Dev Converter`
 }
 if(process.env.ENVIRO === 'prod') {
     client.settings.prefix = client.settings.prodPrefix
