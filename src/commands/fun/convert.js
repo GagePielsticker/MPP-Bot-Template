@@ -69,7 +69,7 @@ module.exports = class Convert extends Command {
             if (err) {
                 console.log()
                 clearInterval(updateInt)
-                client.mpp.send(`Internal error trying to execute.`)
+                client.mpp.sendMessage(`Internal error trying to execute.`)
                 console.error("could not execute command: ", err)
                 client.downloadLock = false
                 return
@@ -78,7 +78,7 @@ module.exports = class Convert extends Command {
             clearInterval(updateInt)
             exec(`cd ./audio && mv ${date}.mid /var/www/html`, (err, out) => {
                 if (err) {
-                    client.mpp.send(`Internal error trying to execute.`)
+                    client.mpp.sendMessage(`Internal error trying to execute.`)
                     console.error("could not execute command: ", err)
                     client.downloadLock = false
                     return
