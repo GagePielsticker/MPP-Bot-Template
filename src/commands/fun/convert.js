@@ -48,7 +48,8 @@ module.exports = class Convert extends Command {
         let date = +new Date()
 
         shell.chmod('+x', './runmodel.sh')
-        shell.exec(`./runmodel.sh '${data.title}.mp3' ${date}.mp3`, (code, stdout, stderr) => {
+        exec(`cd ./audio/ && mv '${data.title}.mp3' ${date}.mp3`)
+        shell.exec(`./runmodel.sh ${date}.mp3`, (code, stdout, stderr) => {
             console.log(code)
             console.log(stderr)
             console.log(stdout)
