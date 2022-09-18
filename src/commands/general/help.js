@@ -11,7 +11,7 @@ module.exports = class HelpCommand extends Command {
   async run (client, msg) {
 
     client.mpp.sendMessage('📖 Help')
-    client.mpp.sendMessage(`Built by Khai <3 - Use ${client.settings.prefix}convert {YOUTUBE_URL} to use the AI midi converter.`)
+    client.mpp.sendMessage(`Built by Khai <3 - Use ${client.settings.prefix}convert {YOUTUBE_URL} to use the AI midi converter. It only works for piano videos.`)
 
     let data = []
 
