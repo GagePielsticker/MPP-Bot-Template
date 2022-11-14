@@ -1,7 +1,7 @@
 {
-  "name": "mpp-bot",
+  "name": "mpp-bot-template",
   "version": "1.0.0",
-  "description": "",
+  "description": "A bot template for mppclone.com / multiplayerpiano.com.",
   "main": "index.js",
   "scripts": {
     "start": "node ./src/index.js"
@@ -10,21 +10,15 @@
     "type": "git",
     "url": "git+https://github.com/GagePielsticker/MPP-Bot.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Gage Pielsticker",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/GagePielsticker/MPP-Bot/issues"
   },
   "homepage": "https://github.com/GagePielsticker/MPP-Bot#readme",
   "dependencies": {
     "@discordjs/collection": "^1.1.0",
-    "cleverbot-free": "^1.1.11",
-    "dotenv": "^16.0.2",
-    "mongodb": "^4.9.1",
-    "multiplayerpianojs": "^2.0.3",
-    "shelljs": "^0.8.5",
-    "systeminformation": "^5.12.6",
-    "youtube-info-streams": "^1.0.8",
-    "youtube-mp3-downloader": "^0.7.11"
+    "multiplayerpianojs": "^3.0.0",
+    "systeminformation": "^5.12.6"
   }
 }

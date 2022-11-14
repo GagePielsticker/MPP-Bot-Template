@@ -16,11 +16,10 @@ module.exports = class StatsCommand extends Command {
 
     client.mpp.sendMessage('📊 Statistics')
     client.mpp.sendMessage('INFO :: Bot is currently under development. Feel free to contribute!')
-    client.mpp.sendMessage(`DEPLOYMENT :: ${process.env.ENVIRO}`)
-    client.mpp.sendMessage(`RAM :: ${Math.floor(mem.used / 1000000000)}gb/${Math.floor(mem.total / 1000000000)}gb`)
-    client.mpp.sendMessage(`CPU :: ${cpu.cores} Cores`)
-    client.mpp.sendMessage(`PLATFORM :: ${operating.platform}`)
-    client.mpp.sendMessage(`Language :: NodeJS using ${client.settings.libraryURL}`)
-    client.mpp.sendMessage(`Support :: Join my discord @ ${client.settings.discordURL}`)
+    client.mpp.sendMessage(`RAM :: \`${Math.floor(mem.used / 1000000000)}\`gb/\`${Math.floor(mem.total / 1000000000)}\`gb`)
+    client.mpp.sendMessage(`CPU :: \`${cpu.cores}\` Cores`)
+    client.mpp.sendMessage(`PLATFORM :: \`${operating.platform}\``)
+    client.mpp.sendMessage(`Language :: NodeJS using \`${client.settings.libraryURL}\``)
+    client.mpp.sendMessage(`Support :: Join my discord @ \`${client.settings.discordURL}\``)
   }
 }

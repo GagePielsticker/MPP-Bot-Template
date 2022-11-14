@@ -9,8 +9,8 @@ module.exports = class MyInfo extends Command {
 
   async run (client, msg) {
     client.mpp.sendMessage('😃 User Information')
-    client.mpp.sendMessage(`ID: ${msg.author.id}`)
-    client.mpp.sendMessage(`COLOR: ${msg.author.color}`)
-    client.mpp.sendMessage(`NAME: ${msg.author.name}`)
+    client.mpp.sendMessage(`ID: \`${msg.author.id}\``)
+    client.mpp.sendMessage(`COLOR: \`${msg.author.color}\``)
+    client.mpp.sendMessage(`NAME: \`${msg.author.name}\``)
   }
 }

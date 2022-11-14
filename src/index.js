@@ -6,36 +6,19 @@ const Collection = require('@discordjs/collection').Collection
 // Setup our custom client
 let client = {
     commands: new Collection(),
-    settings: require('./settings.json'),
-    database: undefined,
-    chatBotUsers: [],
-    downloadLock: false
+    settings: require('./settings.json')
 }
 require('./engine/extends.js')(client)
-require('./engine/mongo.js')(client)
 
-if(process.env.ENVIRO === 'dev') {
-    client.settings.prefix = client.settings.devPrefix
-    process.env.MPP_TOKEN = process.env.MPP_DEV_TOKEN
-    client.settings.name = `🌌 Dev Converter`
-}
-if(process.env.ENVIRO === 'prod') {
-    client.settings.prefix = client.settings.prodPrefix
-    process.env.MPP_TOKEN = process.env.MPP_PROD_TOKEN
-    client.settings.name = `🌌 Midi Converter ${client.settings.prefix}h`
+client.settings.name = `${client.settings.name} ${client.settings.prefix}h`
+
+if(!client.settings.MPP_TOKEN) {
+    console.log(new Error('NO MPP TOKEN ENTERED, FORCE EXITING TO AVOID BAN.'))
+    process.exit(1)
+    return
 }
 
-client.mpp = new MPPClient(process.env.MPP_TOKEN)
-
-// Connect to our database
-client.settings.mongo.database = `${client.settings.mongo.database}-${process.env.ENVIRO}`
-console.log('Attempting to connect database...')
-client.connectDb()
-    .then(() => console.log(`Database :: ${client.settings.mongo.database}-${process.env.ENVIRO} :: Connected!`))
-    .catch(e => {
-        console.log(e)
-        process.exit(1)
-    })
+client.mpp = new MPPClient(client.settings.MPP_TOKEN)
 
 // Event handling
 client.mpp.on('connected', () => {
@@ -43,22 +26,17 @@ client.mpp.on('connected', () => {
     console.log('Connected to MPP.')
     client.mpp.setChannel(client.settings.defaultChannel)
     client.reloadCommands()
-    client.mpp.sendMessage(`${process.env.ENVIRO} deployed onto server.`)
+    client.mpp.sendMessage(`Bot has been deployed.`)
     client.mpp.setUser(client.settings.name, '#0000FF')
 })
 
 client.mpp.on('userJoin', async usr => {
-
-    //If user is in ban collection of database, ban. (Means he is permabanned)
-    let banStatus = await client.checkUserBan(usr.id)
-    if(banStatus) return client.mpp.ban(usr.id, 1)
+    client.mpp.sendMessage(`Welcome ${usr.name}!`)
 })
 
 client.mpp.on('message', async msg => {
 
   if (!msg.content.startsWith(client.settings.prefix)) return
-
-  if(process.env.ENVIRO === 'dev' && !client.settings.admins.includes(msg.author.id)) return
 
   await client.executeCommand(msg)
       .catch(e => client.mpp.sendMessage(`Error executing command: ${e}`))
